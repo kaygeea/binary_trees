@@ -1,7 +1,5 @@
 #include "binary_trees.h"
 
-#include "binary_trees.h"
-
 /**
  * binary_tree_height - Measure the height of a binary tree.
  * @tree: Incoming argument for pointer to root node of BT to be measured.
@@ -18,7 +16,7 @@ size_t binary_tree_height(const binary_tree_t *tree)
 		r = tree->right ? 1 + binary_tree_height(tree->right) : 0;
 		return ((l > r) ? l : r);
 	}
-	return (0);
+	return (-1); /*-1 because an empty BT has a height of -1*/
 }
 
 
@@ -30,8 +28,13 @@ size_t binary_tree_height(const binary_tree_t *tree)
  */
 int binary_tree_balance(const binary_tree_t *tree)
 {
-	if (tree)
-		return (binary_tree_height(tree->left) - binary_tree_height(tree->right));
+	int right = 0, left = 0, total = 0;
 
-	return (0);
+	if (tree)
+	{
+		left = ((int)binary_tree_height(tree->left));
+		right = ((int)binary_tree_height(tree->right));
+		total = left - right;
+	}
+	return (total);
 }
